@@ -1,12 +1,87 @@
-# React + Vite
+# 📝 Aplikasi Catatan - React SPA
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplikasi pencatatan sederhana berbasis React yang mendukung pencatatan aktif, pengarsipan, pencarian, serta penanganan halaman tidak ditemukan. Dibangun dengan pendekatan **Single Page Application (SPA)** menggunakan **ReactJS** dan tool modern seperti **Vite**.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Fitur Utama
 
-## Expanding the ESLint configuration
+- ✅ Menambahkan catatan baru
+- 🔍 Mencari catatan berdasarkan judul
+- 📥 Mengarsipkan dan membuka arsip catatan
+- 🗑️ Menghapus catatan
+- 📄 Melihat detail isi catatan
+- 🚫 Halaman 404 jika rute tidak ditemukan
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🧑‍💻 Teknologi yang Digunakan
+
+- ⚛️ React
+- ⚡ Vite
+- 📦 Local Storage
+- 🧭 React Router DOM
+
+---
+
+## 📦 Cara Instalasi
+
+1. **Clone repository ini:**
+
+   ```bash
+   git clone <repository-url>
+   cd singlepage-aplication
+   ```
+
+2. **Install dependensi:**
+
+   ```bash
+   npm install
+   ```
+
+3. **Jalankan aplikasi:**
+
+   ```bash
+   npm run dev
+   ```
+
+4. Buka browser dan akses `http://localhost:5173`
+
+---
+
+## 🧭 Struktur Halaman (Routing)
+
+| Path              | Komponen            | Deskripsi                         |
+|-------------------|---------------------|-----------------------------------|
+| `/`               | `NotesPage`         | Halaman utama catatan aktif       |
+| `/archives`       | `ArchivesPage`      | Halaman catatan yang diarsipkan   |
+| `/notes/:id`      | `NoteDetailPage`    | Detail catatan tertentu           |
+| `/new`            | `NewNotePage`       | Form tambah catatan baru          |
+| `*`               | `NotFoundPage`      | Halaman tidak ditemukan (404)     |
+
+---
+
+## 📁 Struktur Proyek (Singkat)
+
+```bash
+src/
+├── components/        # Komponen UI: Header, Footer, NoteCard, dll.
+├── pages/             # Halaman berdasarkan route (SPA)
+├── utils/             # Helper seperti penyimpanan local dan formatter tanggal
+├── styles/            # File CSS untuk styling
+├── App.jsx            # Routing utama aplikasi
+└── index.jsx          # Entry point React
+```
+
+---
+
+## ⚖️ Lisensi
+
+Proyek ini dirilis dengan lisensi **MIT**. Silakan gunakan, modifikasi, dan distribusikan dengan menyertakan atribusi.
+
+---
+
+## 🙌 Kontributor
+
+- bays
+- Dibuat untuk keperluan pembelajaran dan pengembangan aplikasi frontend modern.
