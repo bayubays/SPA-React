@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { addNote } from '../utils/local-data';
+import { addNote } from '../utils/network-data';
 
 export default function NewNotePage() {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const onTitleChangeHandler = (event) => {
@@ -15,7 +16,7 @@ export default function NewNotePage() {
     setBody(event.target.value);
   };
 
-  const onSubmitHandler = (event) => {
+  const onSubmitHandler = async (event) => {
     event.preventDefault();
 
     if (title.trim() === '' && body.trim() === '') {
@@ -23,12 +24,15 @@ export default function NewNotePage() {
       return;
     }
 
-    addNote({
-      title,
-      body,
-    });
+    setLoading(true);
+    const { error } = await addNote({ title, body });
+    setLoading(false);
 
-    navigate('/');
+    if (!error) {
+      navigate('/');
+    } else {
+      alert('Gagal menambahkan catatan.');
+    }
   };
 
   return (
@@ -47,8 +51,12 @@ export default function NewNotePage() {
           onChange={onBodyChangeHandler}
           rows="10"
         ></textarea>
-        <button type="submit" className="accent">
-          Simpan
+        <button
+          type="submit"
+          className="accent"
+          disabled={loading}
+        >
+          {loading ? 'Menyimpan...' : 'Simpan'}
         </button>
       </form>
     </div>

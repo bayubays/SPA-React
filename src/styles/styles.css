@@ -1,58 +1,68 @@
-/* == Dark Theme Variables == */
 :root {
-  --background: #000000;
-  --card: rgba(255, 255, 255, 0.03);
-  --border: rgba(255, 255, 255, 0.1);
-  --text: #ffffff;
-  --text-secondary: rgba(255, 255, 255, 0.6);
+  --background: #ffffff;
+  --card: #f9f9f9;
+  --border: rgba(0, 0, 0, 0.1);
+  --text: #111111;
+  --text-secondary: #555555;
   --accent: #00d1ff;
   --accent-hover: #00faff;
   --danger: #ff453a;
   --danger-hover: #ff6b61;
 }
 
-/* Base */
+[data-theme='dark'] {
+  --background: #0d0d0d;
+  --card: #1c1c1c;
+  --border: rgba(255, 255, 255, 0.15);
+  --text: #f2f2f2;
+  --text-secondary: #aaaaaa;
+  --accent: #00d1ff;
+  --accent-hover: #00faff;
+  --danger: #ff453a;
+  --danger-hover: #ff6b61;
+}
+
 * {
   box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
   padding: 0;
   font-family: 'DM Sans', sans-serif;
-  background: #000000;
-  background-image:
-    radial-gradient(circle at 25% 25%, rgba(0, 209, 255, 0.05) 0%, transparent 50%),
-    radial-gradient(circle at 75% 75%, rgba(0, 209, 255, 0.03) 0%, transparent 50%),
-    linear-gradient(135deg, #000000 0%, #111111 50%, #000000 100%);
-  background-attachment: fixed;
+  background: var(--background);
   color: var(--text);
   line-height: 1.6;
-  overflow-x: hidden;
 }
 
-/* Header Styles */
+::selection {
+  background: var(--accent);
+  color: var(--background);
+}
+
 .header {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  background: rgba(0, 0, 0, 0.95);
+  background: var(--card);
   padding: 1rem 2rem;
   position: sticky;
   top: 0;
-  backdrop-filter: blur(20px);
-  z-index: 1000;
   border-bottom: 1px solid var(--border);
+  z-index: 1000;
 }
 
 .header nav {
   display: flex;
   gap: 2rem;
   align-items: center;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--card);
   padding: 0.75rem 2rem;
   border-radius: 50px;
-  backdrop-filter: blur(10px);
   border: 1px solid var(--border);
 }
 
@@ -81,15 +91,13 @@ body {
 }
 
 .header input[type="search"] {
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--card);
   border: 1px solid var(--border);
   border-radius: 25px;
   padding: 0.75rem 1.5rem;
   color: var(--text);
   font-size: 0.9rem;
   min-width: 250px;
-  backdrop-filter: blur(10px);
-  margin-left: 1rem;
 }
 
 .header input[type="search"]::placeholder {
@@ -102,27 +110,25 @@ body {
   box-shadow: 0 0 15px rgba(0, 209, 255, 0.3);
 }
 
-/* Page Layout */
 .page {
   padding: 2rem;
   max-width: 1200px;
   margin: 0 auto;
 }
 
-/* Grid Layout */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 1.5rem;
   margin-top: 2rem;
 }
+
 .about {
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 16px;
   padding: 2rem;
   margin-bottom: 2rem;
-  backdrop-filter: blur(10px);
 }
 
 .about h2 {
@@ -138,19 +144,15 @@ body {
   line-height: 1.6;
 }
 
-
-/* Note Card */
 .note-card {
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 16px;
-  padding: 0;
-  transition: all 0.3s ease;
   overflow: hidden;
-  backdrop-filter: blur(10px);
   height: 320px;
   display: flex;
   flex-direction: column;
+  transition: all 0.3s ease;
 }
 
 .note-card:hover {
@@ -165,7 +167,6 @@ body {
   background: linear-gradient(135deg, #333, #666);
   border-radius: 12px 12px 0 0;
   margin-bottom: 1rem;
-  overflow: hidden;
 }
 
 .note-card-image img {
@@ -219,7 +220,6 @@ body {
   gap: 0.5rem;
 }
 
-
 .note-card small {
   color: var(--text-secondary);
   font-size: 0.8rem;
@@ -231,7 +231,6 @@ body {
   gap: 0.75rem;
 }
 
-/* Button Styles */
 button {
   cursor: pointer;
   border: none;
@@ -287,8 +286,9 @@ button.small {
   margin: 0.25rem;
 }
 
-/* Forms */
 input[type="text"],
+input[type="email"],
+input[type="password"],
 input[type="search"],
 textarea {
   background: var(--card);
@@ -303,6 +303,8 @@ textarea {
 }
 
 input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
 input[type="search"]:focus,
 textarea:focus {
   outline: none;
@@ -315,26 +317,34 @@ textarea {
   resize: vertical;
 }
 
-
-
-/* ContentEditable Editor */
-.add-new-page__input__body {
+.form {
+  max-width: 500px;
   background: var(--card);
-  color: var(--text);
   border: 1px solid var(--border);
-  border-radius: 8px;
-  min-height: 150px;
-  padding: 1rem;
-  font-family: inherit;
-  font-size: 1rem;
+  padding: 2rem;
+  margin: 2rem auto;
+  border-radius: 12px;
 }
 
-.add-new-page__input__body:empty:before {
-  content: attr(data-placeholder);
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form label {
   color: var(--text-secondary);
+  font-weight: 500;
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
 }
 
-/* 404 Page */
+.form h2 {
+  margin-top: 0;
+  color: var(--accent);
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
 .not-found {
   text-align: center;
   padding: 3rem 2rem;
@@ -376,18 +386,15 @@ textarea {
   padding: 2rem 1rem;
   color: var(--text-secondary);
   font-size: 0.9rem;
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--card);
   border-top: 1px solid var(--border);
   margin-top: 4rem;
-  backdrop-filter: blur(10px);
 }
 
 .footer p {
   margin: 0;
 }
 
-
-/* Responsive */
 @media (max-width: 768px) {
   .header {
     flex-direction: column;
@@ -424,16 +431,4 @@ textarea {
     height: auto;
     min-height: 280px;
   }
-  
-}
-
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-::selection {
-  background: var(--accent);
-  color: var(--background);
 }

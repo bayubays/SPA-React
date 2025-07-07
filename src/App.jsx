@@ -9,7 +9,7 @@ import AboutPage from './pages/AboutPage';
 import NotFoundPage from './components/NotFoundPage';
 import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
-import PrivateRoute from './components/PrivateRoute';    // <<=== kita pakai PrivateRoute
+import PrivateRoute from './components/PrivateRoute';    
 
 export default function App() {
   return (

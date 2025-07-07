@@ -1,25 +1,57 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import NoteCard from '../components/NoteCard';
 import SearchBar from '../components/SearchBar';
-import { getArchivedNotes, unarchiveNote } from '../utils/local-data';
+import { getArchivedNotes, unarchiveNote } from '../utils/network-data';
 
 export default function ArchivesPage() {
-  const [keyword, setKeyword] = useState('');
-  const [notes, setNotes] = useState(getArchivedNotes());
+  const [notes, setNotes] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const keyword = searchParams.get('q') || '';
+
+  useEffect(() => {
+    const fetchNotes = async () => {
+      setLoading(true);
+      const { error, data } = await getArchivedNotes();
+      if (!error) {
+        setNotes(data);
+      } else {
+        alert('Gagal memuat catatan terarsip.');
+      }
+      setLoading(false);
+    };
+
+    fetchNotes();
+  }, []);
+
+  const handleUnarchive = async (id) => {
+    const { error } = await unarchiveNote(id);
+    if (!error) {
+      const { data } = await getArchivedNotes();
+      setNotes(data);
+    } else {
+      alert('Gagal membatalkan arsip.');
+    }
+  };
+
+  const handleKeywordChange = (value) => {
+    setSearchParams({ q: value });
+  };
 
   const filteredNotes = notes.filter((note) =>
     note.title.toLowerCase().includes(keyword.toLowerCase())
   );
 
-  const handleUnarchive = (id) => {
-    unarchiveNote(id);
-    setNotes(getArchivedNotes());
-  };
+  if (loading) {
+    return <p>Loading catatan terarsip...</p>;
+  }
 
   return (
     <div className="page">
       <h2>Catatan Terarsip</h2>
-      <SearchBar keyword={keyword} onKeywordChange={setKeyword} />
+      <SearchBar keyword={keyword} onKeywordChange={handleKeywordChange} />
 
       {filteredNotes.length === 0 ? (
         <p>Tidak ada catatan terarsip</p>
@@ -28,7 +60,7 @@ export default function ArchivesPage() {
           {filteredNotes.map((note) => (
             <div key={note.id}>
               <NoteCard note={note} />
-              <div className="note-card-footer">
+              <div className="note-card-footer" style={{ marginTop: '1rem' }}>
                 <button
                   className="accent small"
                   onClick={() => handleUnarchive(note.id)}
